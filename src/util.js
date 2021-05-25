@@ -113,7 +113,6 @@ export function mnk(x, y){
     let ws = XLSX.utils.json_to_sheet(data, {header: headers});
     let wb = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(wb, ws, "result")
-    let exportFileName = `workbook.xls`;
     
     return {
         a,b,

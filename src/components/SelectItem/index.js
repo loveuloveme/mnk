@@ -8,12 +8,12 @@ function SelectItem({selected, onSelect, onDisSelect, data, wrong, name, disable
             <div className={"data-select-item " + (wrong ? "wrong" : "")}>
                 <div className="data-select-item__point">
                     <div className="data-select-item__point-name">Начало</div>
-                    {data.start == undefined ? '??' : numberToLetters(data.start.j - 1) + data.start.i}
+                    {data.start === undefined ? '??' : numberToLetters(data.start.j - 1) + data.start.i}
                 </div>
                 <div className="data-select-item__delimiter"></div>
                 <div className="data-select-item__point">
                     <div className="data-select-item__point-name">Конец</div>
-                    {data.end == undefined ? '??' : numberToLetters(data.end.j - 1) + data.end.i}
+                    {data.end === undefined ? '??' : numberToLetters(data.end.j - 1) + data.end.i}
                 </div>
                 {!selected ?
                     <Button className="data-select-item__select" onClick={onSelect} disabled={disabled}>

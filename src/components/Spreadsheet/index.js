@@ -15,13 +15,10 @@ import 'react-datasheet/lib/react-datasheet.css';
 import './index.scss';
 
 function Spreadsheet({onSelect, disabled}){
-    const x = useSelector(state => state.x);
-    const y = useSelector(state => state.y);
-
-
     const inputRef = useRef();
 
-    const {width, height, ref} = {width: 300, height: 500, ref :useRef()};
+    //const {width, height, ref} = {width: 300, height: 500, ref :useRef()};
+    const {width, height, ref} = useResizeDetector();
 
     const workbook = useSelector(state => state.workbook);
     const list = useSelector(state => state.list);
@@ -31,46 +28,48 @@ function Spreadsheet({onSelect, disabled}){
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(workbook == null) return;
+        
+
+        let insertData = () => {
+            if(workbook === null) return;
+
+            let sheet = workbook.Sheets[list !== '' ? list : workbook.SheetNames[0]];
+    
+            let endStr = sheet['!ref'].split(':')[1];
+    
+            let end = {
+                letter: parsePosition(endStr)[0],
+                number: parsePosition(endStr)[1],
+            }
+    
+            let table = new Array(parseInt(end.number)).fill(0);
+    
+            table.forEach((item, index) => {
+                table[index] = new Array(lettersToNumber(end.letter)).fill({});
+            });
+    
+            for(var item in sheet){
+                if(!item.search('!')) continue;
+                let pos = parsePosition(item);
+    
+                let x = lettersToNumber(pos[0]) - 1;
+                let y = parseInt(pos[1]) - 1;
+    
+                table[y][x] = {
+                    value: "" + sheet[item].v
+                };
+            }
+    
+            setData(table);
+        };
+
         insertData();
-    }, [list]);
-
-
-    let insertData = useCallback(() => {
-        let sheet = workbook.Sheets[list];
-
-        let endStr = sheet['!ref'].split(':')[1];
-
-        let end = {
-            letter: parsePosition(endStr)[0],
-            number: parsePosition(endStr)[1],
-        }
-
-        let table = new Array(parseInt(end.number)).fill(0);
-
-        table.forEach((item, index) => {
-            table[index] = new Array(lettersToNumber(end.letter)).fill({});
-        });
-
-        for(var item in sheet){
-            if(!item.search('!')) continue;
-            let pos = parsePosition(item);
-
-            let x = lettersToNumber(pos[0]) - 1;
-            let y = parseInt(pos[1]) - 1;
-
-            table[y][x] = {
-                value: "" + sheet[item].v
-            };
-        }
-
-        setData(table);
-    }, [workbook, list]);
+    }, [list, workbook]);
 
     let upload = event => {
         let file = event.target.files[0];
 
-        if(file.name.split('.')[file.name.split('.').length - 1] != 'xlsx'){
+        if(file.name.split('.')[file.name.split('.').length - 1] !== 'xlsx'){
             alert('Неподдерживаемый формат');
             return;
         }
@@ -110,7 +109,7 @@ function Spreadsheet({onSelect, disabled}){
         dataExtended[0].forEach((item, index) => columns.push({ value: numberToLetters(index), readOnly: true }));
         dataExtended.unshift(columns);
         dataExtended.forEach((item, index) => {
-            if(index == 0) return;
+            if(index === 0) return;
 
             item.unshift({ value: index, readOnly: true })
         });

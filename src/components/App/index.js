@@ -9,7 +9,7 @@ import SelectItem from '../SelectItem';
 
 import './index.scss';
 import {setList, setX, setY} from '../../actions/creator';
-import { lettersToNumber, numberToLetters, mnk } from '../../util';
+import { numberToLetters, mnk } from '../../util';
 
 function App(){
     const [input, setInput] = useState(-1);
@@ -32,17 +32,18 @@ function App(){
     }, [workbook, x, y, list])
 
     useEffect(() => {
-        if(input == 0){
+        if(input === 0){
             dispatch(setX({...select}));
-        }else if(input == 1){
+        }else if(input === 1){
             dispatch(setY({...select}));
         }
-    }, [select]);
+    }, [select, dispatch, input]);
 
     useEffect(() => {
+        setInput(-1);
         dispatch(setX({}));
         dispatch(setY({}));
-    }, [list]);
+    }, [list, dispatch]);
 
     let getData = useCallback(() => {
         let xWrong = false;
@@ -58,18 +59,18 @@ function App(){
         let errors = [];
         
 
-        if(x.start != undefined){
-            if(x.start.j == x.end.j){
+        if(x.start !== undefined){
+            if(x.start.j === x.end.j){
                 xLength = x.end.i - x.start.i 
-            }else if(x.start.i == x.end.i){
+            }else if(x.start.i === x.end.i){
                 xLength = x.end.j - x.start.j;
             }
         }
 
-        if(y.start != undefined){
-            if(y.start.j == y.end.j){
+        if(y.start !== undefined){
+            if(y.start.j === y.end.j){
                 yLength = y.end.i - y.start.i 
-            }else if(y.start.i == y.end.i){
+            }else if(y.start.i === y.end.i){
                 yLength = y.end.j - y.start.j;
             }
         }
@@ -77,26 +78,26 @@ function App(){
         xLength = Math.abs(xLength);
         yLength = Math.abs(yLength);
 
-        if(x.start != undefined){
+        if(x.start !== undefined){
             try{
-                if(x.start.j == x.end.j){
+                if(x.start.j === x.end.j){
                     if(x.start.i <= x.end.i){
-                        for(var i = x.start.i; i <= x.end.i; i++){
+                        for(let i = x.start.i; i <= x.end.i; i++){
                             xData.push(workbook.Sheets[list][numberToLetters(x.start.j - 1)+i].v);
                         }
                     }else{
-                        for(var i = x.start.i; i >= x.end.i; i--){
+                        for(let i = x.start.i; i >= x.end.i; i--){
                             xData.push(workbook.Sheets[list][numberToLetters(x.start.j - 1)+i].v);
                         }
                     }
 
-                }else if(x.start.i == x.end.i){
+                }else if(x.start.i === x.end.i){
                     if(x.start.j <= x.end.j){
-                        for(var i = x.start.j; i <= x.end.j; i++){
+                        for(let i = x.start.j; i <= x.end.j; i++){
                             xData.push(workbook.Sheets[list][numberToLetters(i - 1) + (x.start.i)].v);
                         }
                     }else{
-                        for(var i = x.start.j; i >= x.end.j; i--){
+                        for(let i = x.start.j; i >= x.end.j; i--){
                             xData.push(workbook.Sheets[list][numberToLetters(i - 1) + (x.start.i)].v);
                         }
                     }
@@ -108,26 +109,26 @@ function App(){
             }
         }
 
-        if(y.start != undefined){
+        if(y.start !== undefined){
             try{
-                if(y.start.j == y.end.j){
+                if(y.start.j === y.end.j){
                     if(y.start.i <= y.end.i){
-                        for(var i = y.start.i; i <= y.end.i; i++){
+                        for(let i = y.start.i; i <= y.end.i; i++){
                             yData.push(workbook.Sheets[list][numberToLetters(y.start.j - 1)+i].v);
                         }
                     }else{
-                        for(var i = y.start.i; i >= y.end.i; i--){
+                        for(let i = y.start.i; i >= y.end.i; i--){
                             yData.push(workbook.Sheets[list][numberToLetters(y.start.j - 1)+i].v);
                         }
                     }
                 
-                }else if(y.start.i == y.end.i){
+                }else if(y.start.i === y.end.i){
                     if(y.start.j <= y.end.j){
-                        for(var i = y.start.j; i <= y.end.j; i++){
+                        for(let i = y.start.j; i <= y.end.j; i++){
                             yData.push(workbook.Sheets[list][numberToLetters(i) + (y.start.j - 1)].v);
                         }
                     }else{
-                        for(var i = y.start.j; i > y.end.j; i--){
+                        for(let i = y.start.j; i > y.end.j; i--){
                             yData.push(workbook.Sheets[list][numberToLetters(i) + (y.start.j - 1)].v);
                         }
                     }
@@ -139,17 +140,17 @@ function App(){
             }
         }
 
-        if(x.start != undefined ? x.start.i != x.end.i && x.start.j != x.end.j : false){
+        if(x.start !== undefined ? x.start.i !== x.end.i && x.start.j !== x.end.j : false){
             xWrong = true;
             errors.push("Промежуток X некорректен");
         }
     
-        if(y.start != undefined ? y.start.i != y.end.i && y.start.j != y.end.j : false){
+        if(y.start !== undefined ? y.start.i !== y.end.i && y.start.j !== y.end.j : false){
             yWrong = true;
             errors.push("Промежуток Y некорректен");
         }
     
-        if(xLength != yLength){
+        if(xLength !== yLength){
             errors.push("Длины промежутков не совпадают");
         }
 
@@ -160,7 +161,7 @@ function App(){
             yWrong,
             errors
         }
-    }, [x, y, workbook]);
+    }, [x, y, workbook, list]);
 
     let submit = () => {
         setInput(-1);
@@ -168,14 +169,14 @@ function App(){
     };
 
     let dataResult = getData();
-    let ready = dataResult.errors.length == 0;
+    let ready = dataResult.errors.length === 0;
 
     return (
         <div className="App">
             <div className="app-wrapper">
                 <div className="sheet-wrapper">
                     <div className="sheet">
-                        <Spreadsheet onSelect={setSelect} disabled={input == -1} input={input}/>
+                        <Spreadsheet onSelect={setSelect} disabled={input === -1} input={input}/>
                     </div>
                 </div>
                 <div className="data-wrapper">
@@ -183,26 +184,26 @@ function App(){
                         
                         <div className="inner-section">
                             <div className="inner-section-title">Лист</div>
-                            <DropdownButton className="inner-section__list-selector" title={list == '' ? 'Выберите лист' : list} disabled={workbook == null} >
-                                {workbook != null &&
+                            <DropdownButton className="inner-section__list-selector" title={list === '' ? 'Выберите лист' : list} disabled={workbook === null} >
+                                {workbook !== null &&
                                     workbook.SheetNames.map((item, index) => <Dropdown.Item onClick={() => selectList(index)} key={index} eventKey={index}>{item}</Dropdown.Item>)
                                 }
                             </DropdownButton>
                             {/* <div className="inner-section-title">Ошибки</div>
                             <div className="data-select-info">
                                 {dataResult.errors.map(info => <span>{info}</span>)}
-                                {dataResult.errors.length == 0 && <span>Oшибок нет</span>}
+                                {dataResult.errors.length === 0 && <span>Oшибок нет</span>}
                             </div> */}
                             <div className="inner-section-title">Данные {!ready && <Badge variant="danger">Содержат ошибки</Badge>}</div>
                             <div className="data-select">
-                                <SelectItem name={"X"} data={x} disabled={workbook == null} selected={input == 0} onSelect={() => setInput(0)} onDisSelect={() => setInput(-1)} wrong={dataResult.xWrong} />
-                                <SelectItem name={"Y"} data={y} disabled={workbook == null} selected={input == 1} onSelect={() => setInput(1)} onDisSelect={() => setInput(-1)} wrong={dataResult.yWrong} />
-                                <Button onClick={submit} variant="primary" block disabled={!ready || workbook == null}>Рассчитать</Button>
+                                <SelectItem name={"X"} data={x} disabled={workbook === null} selected={input === 0} onSelect={() => setInput(0)} onDisSelect={() => setInput(-1)} wrong={dataResult.xWrong} />
+                                <SelectItem name={"Y"} data={y} disabled={workbook === null} selected={input === 1} onSelect={() => setInput(1)} onDisSelect={() => setInput(-1)} wrong={dataResult.yWrong} />
+                                <Button onClick={submit} letiant="primary" block disabled={!ready || workbook === null}>Рассчитать</Button>
                             </div>
                         </div>
 
                     </div>
-                    {result != null && 
+                    {result !== null && 
                         <div className="result">
                             <div className="inner-section">
                                 <div className="inner-section-title">Значения</div>
