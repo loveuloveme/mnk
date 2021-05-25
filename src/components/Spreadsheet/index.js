@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {Button} from 'react-bootstrap';
 
 import XLSX from 'xlsx';
-import Sheet from "react-spreadsheet";
 import ReactDataSheet from 'react-datasheet';
 
 import {setWorkbook, setList} from '../../actions/creator';
@@ -22,7 +21,7 @@ function Spreadsheet({onSelect, disabled}){
 
     const inputRef = useRef();
 
-    const {width, height, ref} = useResizeDetector();
+    const {width, height, ref} = {width: 300, height: 500, ref :useRef()};
 
     const workbook = useSelector(state => state.workbook);
     const list = useSelector(state => state.list);
@@ -124,7 +123,6 @@ function Spreadsheet({onSelect, disabled}){
             {workbook != null ? 
                 <div ref={ref} className="spreadsheet__data"    >
                     <span style={disabled ? {pointerEvents: 'none'} : {}}>
-                        {/* <Sheet data={renderTable()} onSelect={onSelect} /> */}
                         <ReactDataSheet
                             data={renderTable()}
                             valueRenderer={(cell) => cell.value}

@@ -208,16 +208,16 @@ function App(){
                                 <div className="inner-section-title">Значения</div>
                                 <div className="result">
                                     <div className="result-item">
-                                        <span className="result-item__value">b<span className="result-item__index">a</span></span>=<span className="result-item__result">{result.b}</span>
+                                        <span className="result-item__value">b<span className="result-item__index">a</span></span>=<span className="result-item__result">{result.b.toFixed(4)}</span>
                                     </div>
                                     <div className="result-item">
-                                        <span className="result-item__value">a<span className="result-item__index">a</span></span>=<span className="result-item__result">{result.a}</span>
+                                        <span className="result-item__value">a<span className="result-item__index">a</span></span>=<span className="result-item__result">{result.a.toFixed(4)}</span>
                                     </div>
                                     <div className="result-item">
-                                        <span className="result-item__value">Δ<span className="result-item__index">b</span></span>=<span className="result-item__result">{result.d_b}</span>
+                                        <span className="result-item__value">Δ<span className="result-item__index">b</span></span>=<span className="result-item__result">{result.d_b.toFixed(4)}</span>
                                     </div>
                                     <div className="result-item">
-                                        <span className="result-item__value">Δ<span className="result-item__index">a</span></span>=<span className="result-item__result">{result.d_a}</span>
+                                        <span className="result-item__value">Δ<span className="result-item__index">a</span></span>=<span className="result-item__result">{result.d_a.toFixed(4)}</span>
                                     </div>
                                     
                                     <div
