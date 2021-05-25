@@ -1,0 +1,294 @@
+@import '../../base/colors.scss';
+
+.App{
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app{
+    &-wrapper{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.sheet{
+    &-wrapper{
+        width: 75%;
+        background-color: $gray;
+        overflow: hidden;
+        //box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: auto;
+}
+
+.inner-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 15px;
+
+    &__list-selector{
+        align-self: end;
+
+        margin-bottom: 10px;
+    }
+
+    &-title{
+        align-self: flex-start;
+        color: $dark;
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: .004em;
+
+        margin-bottom: 10px;
+    }
+}
+
+.result{
+    flex-grow: 1;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .inner-section{
+        height: 100%;
+    }
+
+    &-item{
+        font-size: 1.5rem;
+        width: 100%;
+        background-color: $dark-gray;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+
+        font-weight: 600;
+
+        margin-bottom: 5px;
+
+        &__value{
+            margin-right: 10px;
+        }
+
+        &__result{
+            user-select: all;
+            margin-left: 10px;
+        }
+
+        &__index{
+            font-size: 1rem;
+            margin-bottom: -10px;
+        }
+    }
+
+    &-download{
+        &-button{
+            z-index: 100;
+            color: #06c;
+            cursor: pointer;
+
+            margin-top: 10px;
+        }
+    }
+}
+
+.data{
+    &-wrapper{
+        min-width: 280px;
+        width: 25%;
+        background-color: $gray;
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: auto;
+
+        border-left: 1px solid rgb(190, 190, 190);
+    }
+
+    &-select{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &-title{
+            align-self: flex-start;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 7.6px;
+            color: rgb(124, 124, 124);
+        }
+
+        &-info{
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            height: 100px;
+
+            margin-bottom: 35px;
+
+            span{
+                color: #333;
+                font-weight: bold;
+                margin-bottom: 5px;
+                text-align: center;
+                line-height: 17px;
+            }
+        }
+
+        &-submit{
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 17px;
+            line-height: 1.17648;
+            font-weight: 400;
+            letter-spacing: -.022em;
+            min-width: 28px;
+            padding-left: 16px;
+            padding-right: 16px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            border-radius: 980px;
+            background: #0071e3;
+            color: #fff;
+
+            margin-top: 10px;
+        }
+
+        &-item{
+            transition: all 0.3s ease;
+            &.wrong{
+                background-color: #ffd9d5;
+            }
+
+            $item-height: 70px;
+
+            border: 1px solid #d6d6d6;
+            border-radius: 2px;
+            width: 100%;
+            height: $item-height;
+
+            margin-bottom: 15px;
+
+            display: flex;
+
+            &__delimiter{
+                $width: 2px;
+
+                width: $width;
+                margin: $item-height*0.8/8 (-$width/2);
+                height: 80%;
+                background: #d6d6d6;
+                z-index: 10;
+            }
+            
+            &__point{
+                width: 33.33%;
+                flex-grow: 1;
+                
+                text-align: center;
+                line-height: $item-height + 10px;
+
+                font-weight: bold;
+                font-size: 1.4rem;
+                color: $dark;
+
+                position: relative;
+
+                &-name{
+                    position: absolute;
+                    top: 7px;
+                    left: 7px;
+                    line-height: normal;
+                    font-weight: normal;
+                    font-size: 11px;
+                    color: #a7a7a7;
+                }
+                
+                &:hover{
+                    //background-color: red;
+                }
+            }
+
+            &__select{
+                transition: all 0.2s ease;
+
+                width: 33.33%;
+                flex-grow: 1;
+
+                text-align: center;
+                line-height: $item-height;
+                background-color: $blue;
+                color: #fff;
+                cursor: pointer;
+                font-weight: 400;
+                font-size: 1rem;
+                letter-spacing: -.022em;
+
+                border-radius: 2px;
+
+                border-top-left-radius: 0 !important;
+                border-bottom-left-radius: 0 !important;
+
+
+                width: 150px;
+
+                &.cancel{
+                    background: #2c3e50;
+
+                    &:hover{
+                        background-color: #34495e;
+                    }
+                }
+                
+                &:hover{
+                    background-color: $dark-blue;
+                }
+            }
+        }
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px){
+}
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px){ }
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px){
+}
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px){ }
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px){ }

@@ -1,0 +1,79 @@
+$cell-width: 80px;
+$cell-height: 30px;
+$cell-border-size: 1px;
+
+.spreadsheet{
+    $border-margin: 15px;
+
+    width: 100%;
+    height: 100%;
+
+    &__lists{
+
+    }
+
+    &__data{
+        height: 100%;
+        overflow: auto;
+    }
+
+    &-row{
+        height: $cell-height;
+        white-space: nowrap;
+        margin-bottom: -$cell-border-size;
+
+        &:last-of-type{
+            margin-bottom: $cell-border-size;
+        }
+    }
+
+    &-cell{
+        margin-right: -$cell-border-size;
+        box-sizing: border-box;
+        border: 1px solid red;
+        display: inline-block;
+
+        width: $cell-width;
+        height: $cell-height;
+    }
+}
+
+th, td{
+    min-width: 100px;
+    max-width: 100px;
+    height: 33px !important;
+}
+
+.cell{
+    span{
+        max-width: 85px;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+}
+
+.uploadFile{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    h1{
+        margin-bottom: 28px;
+    }
+
+    input{
+        display: none;
+    }
+
+    span{
+        font-weight: bold;
+        color: transparent;
+        background: linear-gradient(158deg, rgba(52,219,102,1) 0%, rgba(69,77,66,1) 100%);
+        background-clip: text;
+    }
+}
