@@ -132,7 +132,7 @@ function Spreadsheet({onSelect, disabled}){
                 :
                 <div className="uploadFile">
                     <div>
-                        <h1>Выберете необходимый<br/>файл формата <span>.xlsx</span></h1>
+                        <h1>Выберите необходимый<br/>файл формата <span>.xlsx</span></h1>
                         <Button
                             variant="primary"
                             onClick={() => inputRef.current.click()}
